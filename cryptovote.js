@@ -2,7 +2,10 @@ const { Cluster } = require('puppeteer-cluster');
 
 (async () => {
     const cluster = await Cluster.launch({
-        puppeteerOptions: { headless: false, timeout: 0 },
+        puppeteerOptions: {
+            headless: false,
+            timeout: 0,
+        },
         concurrency: Cluster.CONCURRENCY_BROWSER,
         maxConcurrency: 1,
     });
@@ -13,24 +16,18 @@ const { Cluster } = require('puppeteer-cluster');
             waitUntil: "load"
         })
 
-        await page.click('.sc-1xvlii-0.dQjfsE')
+        await page.waitForSelector('#__next > div.css-19qzm77 > div > div > div.css-1f1k94j > div.css-9xp0oz > div.css-1e7f1w4 > div.css-1y3e9n6 > div > div.css-14mz9tq > button.chakra-button.social-voting__vote-button_good.css-r80p4a')
+
+        await page.click('#__next > div.css-19qzm77 > div > div > div.css-1f1k94j > div.css-9xp0oz > div.css-1e7f1w4 > div.css-1y3e9n6 > div > div.css-14mz9tq > button.chakra-button.social-voting__vote-button_good.css-r80p4a')
         .then(() => console.log("Passed : Click Event"))
         .catch((err) => console.error("Failed : Click Event"))
-
-        await page.keyboard.type("Jetoken", {delay: 200})
-        .then(() => console.log("Passed : Type Event"))
-        .catch((err) => console.error("Failed : Type Event"))
-
-        await page.keyboard.press('Enter')
-        .then(() => console.log("Passed : Enter Event"))
-        .catch((err) => console.error("Failed : Enter Event"))
 
         await page.keyboard.type("lorem do sfj dgjg sd fdgdfg fhghj fgsfs rttyj dawery ", {delay: 5000})
 
     });
 
-    for(let i = 0; i < 200; i++){
-        cluster.queue('https://coinmarketcap.com/');
+    for(let i = 0; i < 1000; i++){
+        cluster.queue('https://crypto.com/price/jetoken');
     }
 
     // many more pages
