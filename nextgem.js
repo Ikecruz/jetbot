@@ -26,7 +26,7 @@ const { Cluster } = require('puppeteer-cluster');
 
     });
 
-    for(let i = 0; i < 2000; i++){
+    for(let i = 0; i < 10000; i++){
         cluster.queue('https://cryptonextgem.com/jetoken/');
     }
 

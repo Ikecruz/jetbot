@@ -6,7 +6,7 @@ const { Cluster } = require('puppeteer-cluster');
             headless: false, 
             timeout: 0,
         },
-        concurrency: Cluster.CONCURRENCY_BROWSER,
+        concurrency: Cluster.CONCURRENCY_CONTEXT,
         maxConcurrency: 1,
     });
 
@@ -16,7 +16,9 @@ const { Cluster } = require('puppeteer-cluster');
             waitUntil: "load"
         })
 
-        await page.click('#__next > div.bywovg-1.fUzJes > div.main-content > div.sc-57oli2-0.comDeo.cmc-body-wrapper > div > div.sc-16r8icm-0.jKrmxw.container > div > div.sc-16r8icm-0.sc-19zk94m-1.gRSJaB > div.sc-16r8icm-0.dSXRna > div.sc-16r8icm-0.sc-19zk94m-4.iNWJA-d > div > div.pqmllm-2.hLrBVF > button:nth-child(1)')
+        await page.waitForSelector('div.pqmllm-2.hLrBVF > button:nth-child(1)')
+
+        await page.click('div.pqmllm-2.hLrBVF > button:nth-child(1)')
         .then(() => console.log("Passed : Click Event"))
         .catch((err) => console.error("Failed : Click Event"))
 
@@ -24,7 +26,7 @@ const { Cluster } = require('puppeteer-cluster');
 
     });
 
-    for(let i = 0; i < 2000; i++){
+    for(let i = 0; i < 10000; i++){
         cluster.queue('https://coinmarketcap.com/currencies/jetoken/');
     }
 
