@@ -3,7 +3,7 @@ const { Cluster } = require('puppeteer-cluster');
 (async () => {
     const cluster = await Cluster.launch({
         puppeteerOptions: {
-            headless: false, 
+            headless: false,
             timeout: 0,
         },
         concurrency: Cluster.CONCURRENCY_BROWSER,
@@ -16,9 +16,11 @@ const { Cluster } = require('puppeteer-cluster');
             waitUntil: "load"
         })
 
-        await page.waitForSelector('#post-8730 > div.snax.snax-post-container > div > div > div > a > span')
-        
-        await page.click('#post-8730 > div.snax.snax-post-container > div > div > div > a > span')
+        await page.focus('#__next > div > div.chakra-container.css-1c41ou2 > button')
+
+        await page.keyboard.press('Tab')
+
+        await page.keyboard.press('Enter')
         .then(() => console.log("Passed : Click Event"))
         .catch((err) => console.error("Failed : Click Event"))
 
@@ -27,7 +29,7 @@ const { Cluster } = require('puppeteer-cluster');
     });
 
     for(let i = 0; i < 10000; i++){
-        cluster.queue('https://cryptonextgem.com/jetoken/');
+        cluster.queue('https://www.freshcoins.io/coins/jetoken');
     }
 
     // many more pages

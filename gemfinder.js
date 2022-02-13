@@ -1,12 +1,14 @@
 const { Cluster } = require('puppeteer-cluster');
+const userAgent = require('user-agents');
+
 
 (async () => {
     const cluster = await Cluster.launch({
         puppeteerOptions: {
-            headless: false, 
+            headless: false,
             timeout: 0,
         },
-        concurrency: Cluster.CONCURRENCY_CONTEXT,
+        concurrency: Cluster.CONCURRENCY_BROWSER,
         maxConcurrency: 1,
     });
 
@@ -16,9 +18,11 @@ const { Cluster } = require('puppeteer-cluster');
             waitUntil: "load"
         })
 
-        await page.waitForSelector("div.pqmllm-2.hLrBVF > button:nth-child(1)", {visible: true, timeout: 0})
-        
-        await page.click("div.pqmllm-2.hLrBVF > button:nth-child(1)")
+        await page.setUserAgent(userAgent.toString())
+
+        await page.waitForSelector("#coin_details > div > div.row.align-items-center.p-4.rounded-3.border.shadow-sm.m-1.bg-181d23 > div.col-lg-9.mt-5.mt-lg-0 > div.d-grid.gap-2.d-md-flex.justify-content-md-start.mt-4 > button")
+
+        await page.click('#coin_details > div > div.row.align-items-center.p-4.rounded-3.border.shadow-sm.m-1.bg-181d23 > div.col-lg-9.mt-5.mt-lg-0 > div.d-grid.gap-2.d-md-flex.justify-content-md-start.mt-4 > button')
         .then(() => console.log("Passed : Click Event"))
         .catch((err) => console.error("Failed : Click Event"))
 
@@ -27,7 +31,7 @@ const { Cluster } = require('puppeteer-cluster');
     });
 
     for(let i = 0; i < 10000; i++){
-        cluster.queue('https://coinmarketcap.com/currencies/jetoken/');
+        cluster.queue('https://cointoplist.net/coin/jetoken');
     }
 
     // many more pages
@@ -35,3 +39,4 @@ const { Cluster } = require('puppeteer-cluster');
     await cluster.idle();
     await cluster.close();
 })();
+

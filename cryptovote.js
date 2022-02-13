@@ -16,9 +16,9 @@ const { Cluster } = require('puppeteer-cluster');
             waitUntil: "load"
         })
 
-        await page.waitForSelector('#__next > div.css-19qzm77 > div > div > div.css-1f1k94j > div.css-9xp0oz > div.css-1e7f1w4 > div.css-1y3e9n6 > div > div.css-14mz9tq > button.chakra-button.social-voting__vote-button_good.css-r80p4a')
+        await page.waitForSelector('button.chakra-button.social-voting__vote-button_good.css-r80p4a')
 
-        await page.click('#__next > div.css-19qzm77 > div > div > div.css-1f1k94j > div.css-9xp0oz > div.css-1e7f1w4 > div.css-1y3e9n6 > div > div.css-14mz9tq > button.chakra-button.social-voting__vote-button_good.css-r80p4a')
+        await page.click('button.chakra-button.social-voting__vote-button_good.css-r80p4a')
         .then(() => console.log("Passed : Click Event"))
         .catch((err) => console.error("Failed : Click Event"))
 
